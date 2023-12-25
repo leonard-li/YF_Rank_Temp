@@ -1,0 +1,6 @@
+framework module YFRanking {
+  umbrella header "YFRanking.h"
+  export *
+
+  module * { export * }
+}
