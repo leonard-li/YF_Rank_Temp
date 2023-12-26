@@ -55,10 +55,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param userId 用户ID, 如为空则从YFAuthHelper.defaultHelper.userInfo中获取
 /// @param weight 权重
 /// @param endTime 结束时间, 以秒为单位的时间戳(10位), 用来清理房间
+/// @param active 活跃和非活跃 0.非活跃 1.活跃
+/// @param tag 分组标签, 相同标签的为一组
 - (void)joinActivityWithId:(NSString *)activityId
                 withUserId:(NSString *)userId
                 withWeight:(uint32_t)weight
                withEndTime:(NSTimeInterval)endTime
+                withActive:(NSInteger)active
+                   withTag:(NSString *)tag
                 completion:(nullable void(^)(NSError * _Nullable error, NSString * _Nullable roomId))completion;
 
 /// 获取活动房间数据
@@ -73,10 +77,16 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param userId 用户ID, 如为空则从YFAuthHelper.defaultHelper.userInfo中获取
 /// @param roomId 房间ID
 /// @param extendInfo 扩展信息, 开发者可自定义该字段信息, 例如用户名/头像等
+/// @param progress 活动进度，大于等于该值时，用户不能再加入该房间
+/// @param active 活跃和非活跃 0.非活跃 1.活跃
+/// @param tag 分组标签, 相同标签的为一组
 - (void)submitActivityWithId:(NSString *)activityId
                   withUserId:(NSString *)userId
                   withRoomId:(NSString *)roomId
               withExtendInfo:(NSString *)extendInfo
+                withProgress:(NSInteger)progress
+                  withActive:(NSInteger)active
+                     withTag:(NSString *)tag
                   completion:(nullable void(^)(NSError * _Nullable error))completion;
 
 @end
