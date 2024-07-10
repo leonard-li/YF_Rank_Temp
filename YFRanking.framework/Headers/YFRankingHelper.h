@@ -6,9 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <YFRanking/RankInfo.pbobjc.h>
-#import <YFRanking/FetchActivityResp.pbobjc.h>
-#import <YFRanking/ActivityRoomInfo.pbobjc.h>
+#import <YFRanking/Message.pbobjc.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,10 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 单例
 @property (class, nonatomic, readonly) YFRankingHelper *defaultHelper;
-/// 包名
-@property (copy, nonatomic) NSString *bundleId;
-
-//- (void)initWithGeo:(NSString *)userGeo;
+/// 业务标识
+@property (copy, nonatomic) NSString *bid;
 
 /// 获取排行榜数据
 /// @param rankingId 排行榜ID
@@ -45,6 +41,22 @@ NS_ASSUME_NONNULL_BEGIN
              withExtendInfo:(NSString *)extendInfo
                  completion:(nullable void(^)(NSError * _Nullable error))completion;
 
+/// 根据用户Id获取对应榜单中的名次
+/// @param rankingIds 排行榜ID集合
+/// @param userId 用户id, 如为空则从YFAuthHelper.defaultHelper.userInfo中获取
+/// @param geo 用户地区信息, 非必填, 全球榜不需要
+- (void)getRankingWithId:(NSArray<NSString *> *)rankingIds
+              withUserId:(NSString *)userId
+                 withGeo:(NSString *)geo
+              completion:(nullable void(^)(NSError * _Nullable error, NSArray<UserRankInfo *> * _Nullable rankInfos))completion;
+
+/// 获取历史前三的榜单信息
+/// @param rankingId 排行榜ID
+/// @param geo 用户地区信息
+- (void)getTopRanking:(NSString *)rankingId
+              withGeo:(NSString *)geo
+            completion:(nullable void(^)(NSError * _Nullable error, NSArray<HistoryRankingInfoV2 *> * _Nullable histories))completion;
+
 /// 获取活动数据
 /// @param activityId 活动ID
 - (void)getActivitysWithId:(NSString *)activityId
@@ -57,13 +69,21 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param endTime 结束时间, 以秒为单位的时间戳(10位), 用来清理房间
 /// @param active 活跃和非活跃 0.非活跃 1.活跃
 /// @param tag 分组标签, 相同标签的为一组
+/// @param extendInfo 用户扩展信息，包括用户的name，icon等
+/// @param progress 活动进度，大于等于该值时，用户不能再加入该房间
+/// @param roomId 房间ID
+/// @param score 用于需要缓存前3的活动需要的分数
 - (void)joinActivityWithId:(NSString *)activityId
                 withUserId:(NSString *)userId
                 withWeight:(uint32_t)weight
                withEndTime:(NSTimeInterval)endTime
                 withActive:(NSInteger)active
                    withTag:(NSString *)tag
-                completion:(nullable void(^)(NSError * _Nullable error, NSString * _Nullable roomId))completion;
+            withExtendInfo:(NSString *)extendInfo
+              withProgress:(uint32_t)progress
+                withRoomId:(NSString *)roomId
+                withScore:(uint64_t)score
+                completion:(nullable void(^)(NSError * _Nullable error, NSString * _Nullable roomId))completion ;
 
 /// 获取活动房间数据
 /// @param activityId 活动ID
@@ -79,15 +99,18 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param extendInfo 扩展信息, 开发者可自定义该字段信息, 例如用户名/头像等
 /// @param progress 活动进度，大于等于该值时，用户不能再加入该房间
 /// @param active 活跃和非活跃 0.非活跃 1.活跃
-/// @param tag 分组标签, 相同标签的为一组
 - (void)submitActivityWithId:(NSString *)activityId
                   withUserId:(NSString *)userId
                   withRoomId:(NSString *)roomId
               withExtendInfo:(NSString *)extendInfo
                 withProgress:(NSInteger)progress
                   withActive:(NSInteger)active
-                     withTag:(NSString *)tag
                   completion:(nullable void(^)(NSError * _Nullable error))completion;
+
+/// 获取历史前三的活动信息
+/// @param activityId 活动ID
+- (void)getTopActivity:(NSString *)activityId
+            completion:(nullable void(^)(NSError * _Nullable error, NSArray<HistoryRankingInfo *> * _Nullable histories))completion;
 
 @end
 

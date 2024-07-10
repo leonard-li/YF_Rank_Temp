@@ -16,8 +16,6 @@ FOUNDATION_EXPORT const unsigned char YFRankingVersionString[];
 // In this header, you should import all the public headers of your framework using statements like #import <YFRanking/PublicHeader.h>
 
 #import <YFRanking/YFRankingHelper.h>
-#import <YFRanking/RankInfo.pbobjc.h>
-#import <YFRanking/FetchActivityResp.pbobjc.h>
-#import <YFRanking/ActivityRoomInfo.pbobjc.h>
+#import <YFRanking/Message.pbobjc.h>
 
-#define YF_RANKING_VERSION @"1.0.3"
+#define YF_RANKING_VERSION @"1.0.5"
