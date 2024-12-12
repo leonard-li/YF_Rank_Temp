@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <YFRanking/Message.pbobjc.h>
+#import <YFRanking/YFActivityRoomInfo.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -91,6 +92,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)getActivityRoomWithId:(NSString *)activityId
                    withRoomId:(NSString *)roomId
                    completion:(nullable void(^)(NSError * _Nullable error, NSArray<ActivityRoomInfo *> * _Nullable roomInfo))completion;
+
+/// 获取活动房间数据 -- 和上面的相比，不一样的是返回的数据
+/// @param activityId 活动ID
+/// @param roomId 房间ID
+- (void)getActivityRoomWithIdV2:(NSString *)activityId
+                     withRoomId:(NSString *)roomId
+                     completion:(nullable void(^)(NSError * _Nullable error, NSArray<YFActivityRoomInfo *> * _Nullable roomInfos))completion;
 
 /// 提交活动数据
 /// @param activityId 活动ID

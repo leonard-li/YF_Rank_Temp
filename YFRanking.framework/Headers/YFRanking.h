@@ -18,5 +18,6 @@ FOUNDATION_EXPORT const unsigned char YFRankingVersionString[];
 #import <YFRanking/YFRankingHelper.h>
 #import <YFRanking/YFRankingUtils.h>
 #import <YFRanking/Message.pbobjc.h>
+#import <YFRanking/YFActivityRoomInfo.h>
 
-#define YF_RANKING_VERSION @"1.0.6"
+#define YF_RANKING_VERSION @"1.0.7"

@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <YFRanking/Message.pbobjc.h>
 #import <YFCore/YFCore.h>
+#import <YFRanking/YFActivityRoomInfo.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,6 +25,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)jsonFromUserRankInfos:(NSArray<UserRankInfo *> *)userRankInfos;
 
 + (NSString *)jsonFromHistoryRankInfoV2:(NSArray<HistoryRankingInfoV2 *> *)histories;
+
++ (NSString *)jsonFromActivityRoomInfo:(NSArray<ActivityRoomInfo *> *)activityRoomInfos;
+
++ (NSString *)jsonFromYFActivityRoomInfo:(NSArray<YFActivityRoomInfo *> *)activityRoomInfos;
 
 @end
 
