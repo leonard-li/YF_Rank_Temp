@@ -50,6 +50,34 @@ NS_ASSUME_NONNULL_BEGIN
 YF_FINAL @interface MessageRoot : YFRootObject
 @end
 
+#pragma mark - RankingRemoveReq
+
+typedef YF_ENUM(RankingRemoveReq_FieldNumber) {
+  RankingRemoveReq_FieldNumber_BundleId = 1,
+  RankingRemoveReq_FieldNumber_RankingId = 2,
+  RankingRemoveReq_FieldNumber_UserId = 3,
+  RankingRemoveReq_FieldNumber_UserGeo = 4,
+};
+
+/**
+ * 移除排行榜中黑名单的用户 /v1/r/remove
+ **/
+YF_FINAL @interface RankingRemoveReq : YFMessage
+
+/** 应用标识ID */
+@property(nonatomic, readwrite, copy, null_resettable) NSString *bundleId;
+
+/** 排行榜ID */
+@property(nonatomic, readwrite, copy, null_resettable) NSString *rankingId;
+
+/** 用户ID */
+@property(nonatomic, readwrite, copy, null_resettable) NSString *userId;
+
+/** 用户地区编码 */
+@property(nonatomic, readwrite, copy, null_resettable) NSString *userGeo;
+
+@end
+
 #pragma mark - RankingScoreCommitReq
 
 typedef YF_ENUM(RankingScoreCommitReq_FieldNumber) {
@@ -247,7 +275,7 @@ typedef YF_ENUM(FetchActivityReq_FieldNumber) {
 };
 
 /**
- * 查看当前活动 /v1/a/fetch /v2/a/fetch
+ * 查看当前活动 /v2/a/fetch
  **/
 YF_FINAL @interface FetchActivityReq : YFMessage
 
@@ -432,7 +460,7 @@ typedef YF_ENUM(FetchActivityRoomReq_FieldNumber) {
 };
 
 /**
- * 获取活动房间数据请求 /v1/a/fetchRoom /v2/a/fetchRoom
+ * 获取活动房间数据请求 /v2/a/fetchRoom
  **/
 YF_FINAL @interface FetchActivityRoomReq : YFMessage
 
@@ -492,7 +520,7 @@ typedef YF_ENUM(ActivityHistoryTopReq_FieldNumber) {
 };
 
 /**
- * /v2/a/fetchTopHistory
+ * 获取活动历史前3玩家信息请求 /v2/a/fetchTopHistory
  **/
 YF_FINAL @interface ActivityHistoryTopReq : YFMessage
 
@@ -547,6 +575,7 @@ typedef YF_ENUM(RankingHistoryTopReq_FieldNumber) {
   RankingHistoryTopReq_FieldNumber_BundleId = 1,
   RankingHistoryTopReq_FieldNumber_RankingId = 2,
   RankingHistoryTopReq_FieldNumber_Geo = 3,
+  RankingHistoryTopReq_FieldNumber_EndTime = 4,
 };
 
 /**
@@ -562,6 +591,9 @@ YF_FINAL @interface RankingHistoryTopReq : YFMessage
 
 /** 地区排行榜需要传对应地区 */
 @property(nonatomic, readwrite, copy, null_resettable) NSString *geo;
+
+/** 根据结算时间获取对应历史记录。由于服务器结算需要时间，会从这个时间再往后几秒范围获取 */
+@property(nonatomic, readwrite) uint64_t endTime;
 
 @end
 

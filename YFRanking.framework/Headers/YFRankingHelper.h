@@ -56,6 +56,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param geo 用户地区信息
 - (void)getTopRanking:(NSString *)rankingId
               withGeo:(NSString *)geo
+           completion:(nullable void(^)(NSError * _Nullable error, NSArray<HistoryRankingInfoV2 *> * _Nullable histories))completion __attribute__((deprecated("已过期, 请使用getTopRanking:withGeo:withEndTime:completion:")));
+
+/// 获取历史前三的榜单信息
+/// @param rankingId 排行榜ID
+/// @param geo 用户地区信息
+/// @param endTime 根据结算时间获取对应历史记录。由于服务器结算需要时间，会从这个时间再往后几秒范围获取
+- (void)getTopRanking:(NSString *)rankingId
+              withGeo:(NSString *)geo
+          withEndTime:(uint64_t)endTime
             completion:(nullable void(^)(NSError * _Nullable error, NSArray<HistoryRankingInfoV2 *> * _Nullable histories))completion;
 
 /// 获取活动数据
@@ -119,6 +128,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param activityId 活动ID
 - (void)getTopActivity:(NSString *)activityId
             completion:(nullable void(^)(NSError * _Nullable error, NSArray<HistoryRankingInfo *> * _Nullable histories))completion;
+
+/// 移除排行榜中黑名单的用户
+/// @param rankingId 排行榜ID
+/// @param userId 用户ID
+/// @param geo 用户地区编码
+- (void)removeFromRanking:(NSString *)rankingId
+               withUserId:(NSString *)userId
+                  withGeo:(NSString *)geo
+               completion:(nullable void(^)(NSError * _Nullable error))completion;
 
 @end
 

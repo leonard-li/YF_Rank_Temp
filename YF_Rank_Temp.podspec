@@ -2,7 +2,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "YF_Rank_Temp"
-  spec.version      = "1.0.7"
+  spec.version      = "1.0.8"
   spec.summary      = "排行榜"
 
   spec.description  = <<-DESC
